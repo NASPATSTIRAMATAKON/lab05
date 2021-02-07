@@ -2,7 +2,7 @@
 <div>
     <h2>Books in Cart</h2>
     <div v-bind:key="book.bookid" v-for="book in cart">
-        <CartItem v-bind:book="book" v-on:removeCartitem="Remove(book.bookid)" />
+        <CartItem v-bind:book="book" v-on:remove:Cartitem="Remove(book.bookid)" v-on:increaseCartitem="IncreaseQty(book.bookid)" v-on:decreaseCartitem="DecreaseQty(book.bookid)" />
     </div>
 </div>
 </template>
@@ -15,9 +15,15 @@ export default {
     components: {
         CartItem
     },
-    methods:{
+    methods: {
+        IncreaseQty(bookId){
+            this.$emit('increaseCartitem', bookId)
+        },
+        DecreaseQty(bookId){
+            this.$emit('decreaseCartitem', bookId)
+        },
         Remove(bookId){
-            this.$emit('removeCartitem',bookId);
+            this.$emit('remove:Cartitem', bookId)
         }
     }
 
@@ -26,8 +32,8 @@ export default {
 
 <style scoped>
 .book-item {
-    background: #a1b5ca;
+    background: #94a0ad;
     padding: 10px;
-    border-bottom: 1px rgb(230, 193, 193) dotted;
+    border-bottom: 1px rgb(209, 190, 190) dotted;
 }
 </style>
